@@ -1,4 +1,5 @@
 #include "GameScene.h"
+#include "Definitions.h"
 
 USING_NS_CC;
 
@@ -40,7 +41,7 @@ bool GameScene::init()
     
     spaceShip = Sprite::create("res/spaceship.png");
    
-    spaceShip->setPosition(0, 100);
+    spaceShip->setPosition(0, INIT_SPACESHIP_ORBIT);
     spaceShip->setScale(0.03);
     spaceShip->setAnchorPoint(Vec2(0.5, 0.5));
     spaceShip->setRotation(90);
@@ -74,6 +75,7 @@ void GameScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event){
     if (keyCode == EventKeyboard::KeyCode::KEY_SPACE) {
         spaceShip->runAction(MoveTo::create(0.5, Vec2(spaceShip->getPosition().x + 10, spaceShip->getPosition().y + 10)));
     }
+    drawComets();
 }
 
 void GameScene::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event){
@@ -81,6 +83,33 @@ void GameScene::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event){
         spaceShip->runAction(MoveTo::create(0.5, Vec2(spaceShip->getPosition().x + 10, spaceShip->getPosition().y + 10)));
         
     }
+}
+
+void GameScene::drawComets(){
+    
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    // rd - random direction(left or right side)
+    int rx, ry, rd;
+    rd = RandomHelper::random_int(0, 1);
+    if(rd){
+        //left side
+        rx = RandomHelper::random_int((int)origin.x, 30);
+        ry = RandomHelper::random_int((int)origin.y, 30);
+    }else{
+        //right side
+        rx = RandomHelper::random_int((int)(visibleSize.width - rx) - 20, (int)(visibleSize.width - rx));
+        ry = RandomHelper::random_int((int)(visibleSize.height - ry) - 20, (int)(visibleSize.height - ry));
+    }
+    //int rx = RandomHelper::random_int(0, INIT_SPACESHIP_ORBIT+100);
+    //int ry = RandomHelper::random_int(0, INIT_SPACESHIP_ORBIT+100);
+    log("%d %d",rx, ry);
+    Comet = DrawNode::create();
+    Comet->drawDot(Vec2(rx, ry), 10, Color4F(100,0,0,1));
+    this->addChild(Comet);
+    
+    Comet->runAction(RepeatForever::create(MoveTo::create(3.0f, Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y))));
+    
 }
 
 void GameScene::update(float dt){
