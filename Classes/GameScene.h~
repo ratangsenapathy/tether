@@ -14,7 +14,7 @@ public:
     cocos2d::DrawNode* laser;
     cocos2d::DrawNode* Comet;
     cocos2d::Node* rotationPoint;
-    cocos2d::CCArray* comets;
+    cocos2d::CCArray *comets;
 //    cocos2d::Size visibleSize;
 //    cocos2d::Vec2 origin;
     // a selector callback

@@ -144,7 +144,7 @@ void GameScene::update(float dt){
     CCARRAY_FOREACH(comets,it)
     {
 	DrawNode* comet = dynamic_cast<DrawNode*>(it);
- //CCLOG("Projectile: %f, %f", comet->getPosition().x,  comet->getPosition().y);
+ CCLOG("Projectile: %f, %f", comet->getPosition().x,  comet->getPosition().y);
 	//CCRect cometRect=CCRectMake(comet->getPosition().x - 10, comet->getPosition().y - 10, 20, 20);
          
 	//CCRect spaceShipRect = CCRectMake(spaceShip->getPosition().x - (spaceShip->getContentSize().width/2), spaceShip->getPosition().y - (spaceShip->getContentSize().height/2), spaceShip->getContentSize().width, spaceShip->getContentSize().height);
